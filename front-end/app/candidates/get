@@ -1,0 +1,89 @@
+[
+	{
+		"img" : "https://gigup-server-prod.eu/vote/front-end/img/photos/borovsky.png",
+		"name"	: "JUDr. Ing. Slavomír Borovský",
+		"number" : 1,
+		"work_title" : "právnik",
+		"age" : "50",
+		"parties" : [
+			{
+				"name" : "nezávislý kandidát"
+			}			
+		],
+		"votes" : "230"
+	},
+	{
+		"img" : "https://gigup-server-prod.eu/vote/front-end/img/photos/braz.png",
+		"name"	: "Ing. Tibor Bráz",
+		"number" : 2,
+		"work_title" : "podnikateľ",
+		"age" : "50",		
+		"parties" : [
+			{
+				"name" : "nezávislý kandidát"
+			}			
+		],
+		"votes" : "30"
+	},
+	{
+		"img" : "https://gigup-server-prod.eu/vote/front-end/img/photos/jan-csala.png",
+		"name"	: "Ing. Ján Csala",
+		"number" : 3,
+		"work_title" : "ekonóm",
+		"age" : "36",		
+		"parties" : [
+			{
+				"name" : "nezávislý kandidát"
+			}			
+		],
+		"votes" : "80"
+	},
+	{
+		"img" : "https://gigup-server-prod.eu/vote/front-end/img/photos/krusinsky.png",
+		"name"	: "Ing. Norbert Krušinský",
+		"number" : 4,
+		"work_title" : "vedúci prevádzky",
+		"age" : "32",	
+		"parties" : [
+			{
+				"name" : "MOST-HÍD"
+			},
+			{
+				"name" : "KDH"
+			},
+			{
+				"name" : "SDKÚ-DS"
+			},
+			{
+				"name" : "SIEŤ"
+			}			
+		],
+		"votes" : "60"
+	},
+	{
+		"img" : "https://gigup-server-prod.eu/vote/front-end/img/photos/molnarova.png",
+		"name"	: "Mgr. Monika Molnárová",
+		"number" : 5,
+		"work_title" : "konateľ",
+		"age" : "30",		
+		"parties" : [
+			{
+				"name" : "SMER"
+			}	
+		],
+		"votes" : "30"
+	},	
+	{
+		"img" : "https://gigup-server-prod.eu/vote/front-end/img/photos/petrasova.png",
+		"name"	: "Ing. Irena Petrášová",
+		"number" : 6,
+		"work_title" : "audítor",
+		"age" : "57",		
+		"parties" : [
+			{
+				"name" : "SMK-MKP"
+			}			
+		],
+		"votes" : "20"
+	}		
+]

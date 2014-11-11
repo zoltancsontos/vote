@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" ng-app="voteApp"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <title>Prieskum komunálne voľby na post primátora mesta Moldava nad Bodvou</title>
+        <meta name="description" content=""/>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+		
+        <link rel="stylesheet" href="css/normalize.min.css" />
+        <link rel="stylesheet" href="css/cooper-hewith.css" />
+        <link rel="stylesheet" href="css/main.css" />
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+		<script src="js/controllers.js"></script>
+        <!--[if lt IE 9]>
+            <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+            <script>window.html5 || document.write('<script src="js/vendor/html5shiv.js"><\/script>')</script>
+        <![endif]-->
+    </head>
+    <body ng-controller="VoteAppCandidatesCtrl">
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+		
+		<div class="wrapper">
+			
+			<div ng-show="votingView">
+				<header>
+					<h1>Koho by ste volili ak by sa komunálne voľby na post primátora mesta Moldava nad Bodvou konali dnes?</h1>
+				</header>
+				<div class="xhr-error" ng-show="showHttpError">{{xhrError}}</div>
+				
+				<section id="candidates">
+					<div id="validation-error" ng-hide="voteSelected">
+						Ak chcete hlasovať, musíte vybrať kandidáta...
+					</div>
+					<form novalidate>
+						<ul>
+							<li ng-repeat="candidate in candidates">
+								<input type="radio" ng-model="$parent.number" value="{{candidate.number}}" />
+								<strong>
+									{{candidate.number}}.
+									{{candidate.name}}
+								</strong>
+								<small><span ng-if="candidate.age != 0">, ({{candidate.age}} r.),</span> {{candidate.work_title}}</small>
+								<div class="parties">
+									<small ng-repeat="party in candidate.parties">
+										{{party.name}} <span ng-if="!$last">|</span>
+									</small>
+								</div>
+							</li>
+						</ul>
+						<div id="buttons">
+							<input ng-click="vote(number)" ng-hide="voteOnlyOnceFlag" type="submit" value="hlasovať" />
+							<input ng-click="showChart('vote-results')" type="button" value="pozrieť výsledky" />
+						</div>
+					</form>
+				</section>
+			</div>
+			
+			<div ng-show="chartView">
+			
+				<header>
+					<h1>Výsledky prieskumu</h1>
+				</header>
+				<div class="xhr-error" ng-show="showHttpError">{{xhrError}}</div>
+				<!-- Chart view -->
+				<div class="chart-view">
+					<strong>Počet hlasov:</strong>
+					<canvas id="vote-results" width="700" height="550" class="hide clearfix"></canvas>
+				</div>
+				<!-- Buttons -->
+				<div id="buttons">
+					<input ng-click="showVoting()" ng-hide="voteOnlyOnceFlag" type="button" value="späť na hlasovanie" />
+				</div>
+				
+			</div>			
+			
+			<footer id="info">
+				<p>
+					Táto aplikácia vznikla za účelom uskutočnenia anonymného a nezávislého predvolebného prieskumu komunálnych volieb v Moldave nad Bodvou.
+				</p>
+				<p>
+					Používanie aplikácie je možné iba prostredníctvom Facebooku. Aplikácia si neukladá žiadne osobné údaje, okrem šifrovaného identifikačného čísla vášho Facebook profilu - toto identifikačné číslo nie je možné dešifrovať a ukladá sa iba z dôvodu zamedzenia opätovného hlasovania. Táto aplikácia používa súbory cookies, aktivovaním aplikácie na Facebooku súhlasíte s ich používaním.				
+				</p>
+				<p>
+				Údaje o kandidátoch pochádzajú z oficiálneho vyhlásenia kandidatúry pre voľby primátora v Moldave nad Bodvou na nasledujúcom	
+				<a href="http://www.moldava.sk/dokument/uradne-oznamy/2014-volby-do-organov-samospravy-obci--vyhlasenie-kandidatury-pre-volby-primatora%20mesta-v-moldave-nad-bodvou.pdf">
+				odkaze
+				</a>.</p>
+			</footer>			
+		
+		</div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.1.min.js"><\/script>')</script>
+        
+		<script src="js/vendor/chart.js"></script>
+
+		<script>
+			var FbUserData = {};
+			window.fbAsyncInit = function() {
+				FB.init({
+					appId      : '', // Put your app id here
+					xfbml      : true,
+					version    : 'v2.2'
+				});
+
+				function onLogin(response) {
+					if (response.status == 'connected') {
+						FB.api('/me', function(data) {
+							FbUserData = data;
+						});
+					}
+				};
+
+				FB.getLoginStatus(function(response) {
+					// Check login status on load, and if the user is
+					// already logged in, go directly to the welcome message.
+					if (response.status == 'connected') {
+						onLogin(response);
+					} else {
+						// Otherwise, show Login dialog first.
+						FB.login(function(response) { onLogin(response); }, {scope: 'user_friends, email'});
+					}
+				});					
+				
+			};	  
+
+			(function(d, s, id) {
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id)) {return;}
+					js = d.createElement(s); js.id = id;
+					js.src = "//connect.facebook.net/en_US/sdk.js";
+					fjs.parentNode.insertBefore(js, fjs);
+		   }(document, 'script', 'facebook-jssdk'));
+		   
+		</script>		
+		
+        <script src="js/main.js"></script>
+    </body>
+</html>

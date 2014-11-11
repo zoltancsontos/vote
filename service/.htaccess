@@ -1,0 +1,3 @@
+RewriteEngine on
+RewriteCond $1 !^(index\.php|images|robots\.txt|mu-bb3e1311-800f231c-4578148c-10e41579)
+RewriteRule ^(.*)$ index.php/$1 [L]
